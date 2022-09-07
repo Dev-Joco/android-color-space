@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.jojo.android.colorsimilarityapp.ui.colorSimilarity.ColorSimilarityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_ver_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_hor_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_hor_bottom_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75"/>
+
+        <!-- Background View -->
+        <View
+            android:id="@+id/background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@{vm.backgroundColor.color}"
+            tools:background="@android:color/holo_green_light"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_hor_mid"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_ver_mid"/>
+
+        <!-- Circular View -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/circle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@{vm.circleColor.color}"
+            tools:src="@color/app_theme_color"
+            app:shapeAppearance="@style/CornerSize50Percent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_hor_mid"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_ver_mid"/>
+        
+        <!-- Similarity Result Table -->
+        <include android:id="@+id/similarity_table"
+            layout="@layout/similarity_table"/>
+
+        <!-- Circle Color SeekBar List Title -->
+        <TextView
+            android:id="@+id/circle_color_seek_bar_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:gravity="end|center_vertical"
+            android:text="[Circle Color]: "
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/guideline_hor_mid"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- Circle Color RGB Value -->
+        <TextView
+            android:id="@+id/circle_color_rgb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@{vm.circleColor.colorToHexString}"
+            tools:text="# ffffffff"
+            app:layout_constraintTop_toTopOf="@id/circle_color_seek_bar_list_title"
+            app:layout_constraintBottom_toBottomOf="@id/circle_color_seek_bar_list_title"
+            app:layout_constraintStart_toEndOf="@id/circle_color_seek_bar_list_title"/>
+
+        <!-- Circle Color SeekBar List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/circle_color_seek_bar_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="0dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            tools:itemCount="4"
+            tools:listitem="@layout/color_seek_bar"
+            app:layout_constraintTop_toBottomOf="@id/circle_color_seek_bar_list_title"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_hor_bottom_mid"/>
+
+        <!-- Background Color SeekBar List Title -->
+        <TextView
+            android:id="@+id/background_color_seek_bar_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:gravity="end|center_vertical"
+            android:text="[Background Color]: "
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/guideline_hor_bottom_mid"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- Background Color RGB Value -->
+        <TextView
+            android:id="@+id/background_color_rgb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@{vm.backgroundColor.colorToHexString}"
+            tools:text="# ffffffff"
+            app:layout_constraintTop_toTopOf="@id/background_color_seek_bar_list_title"
+            app:layout_constraintBottom_toBottomOf="@id/background_color_seek_bar_list_title"
+            app:layout_constraintStart_toEndOf="@id/background_color_seek_bar_list_title"/>
+
+        <!-- Background Color SeekBar List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/background_color_seek_bar_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            tools:itemCount="4"
+            tools:listitem="@layout/color_seek_bar"
+            app:layout_constraintTop_toBottomOf="@id/background_color_seek_bar_list_title"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

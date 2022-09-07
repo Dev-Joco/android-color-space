@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewType"
+            type="java.lang.Integer" />
+        <variable
+            name="colorType"
+            type="java.lang.Integer" />
+        <variable
+            name="vm"
+            type="com.jojo.android.colorsimilarityapp.ui.colorSimilarity.ColorSimilarityViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/material_dynamic_neutral_variant95">
+
+        <!-- Color Space Name -->
+        <TextView
+            android:id="@+id/color_space_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="[RGB]"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <!-- Color Element 0 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/label_0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="R: "/>
+
+            <TextView
+                android:id="@+id/value_0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{viewType == 0 ? vm.circleSeekBarStates.get(colorType).get(0).valueStr : vm.backgroundSeekBarStates.get(colorType).get(0).valueStr}"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:text="145"/>
+
+            <SeekBar
+                android:id="@+id/seek_0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:tag="0"
+                android:progress="@{viewType == 0 ? vm.circleSeekBarStates.get(colorType).get(0).progress : vm.backgroundSeekBarStates.get(colorType).get(0).progress}"
+                tools:max="255"
+                tools:progress="145"/>
+
+        </LinearLayout>
+
+        <!-- Color Element 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/label_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="G: "/>
+
+            <TextView
+                android:id="@+id/value_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{viewType == 0 ? vm.circleSeekBarStates.get(colorType).get(1).valueStr : vm.backgroundSeekBarStates.get(colorType).get(1).valueStr}"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:text="72"/>
+
+            <SeekBar
+                android:id="@+id/seek_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:tag="1"
+                android:progress="@{viewType == 0 ? vm.circleSeekBarStates.get(colorType).get(1).progress : vm.backgroundSeekBarStates.get(colorType).get(1).progress}"
+                tools:max="255"
+                tools:progress="72"/>
+
+        </LinearLayout>
+
+        <!-- Color Element 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/label_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="B: "/>
+
+            <TextView
+                android:id="@+id/value_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{viewType == 0 ? vm.circleSeekBarStates.get(colorType).get(2).valueStr : vm.backgroundSeekBarStates.get(colorType).get(2).valueStr}"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:text="172"/>
+
+            <SeekBar
+                android:id="@+id/seek_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:tag="2"
+                android:progress="@{viewType == 0 ? vm.circleSeekBarStates.get(colorType).get(2).progress : vm.backgroundSeekBarStates.get(colorType).get(2).progress}"
+                tools:max="255"
+                tools:progress="172"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

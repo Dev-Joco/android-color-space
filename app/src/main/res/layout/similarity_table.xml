@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.jojo.android.colorsimilarityapp.util.ColorType"/>
+        <variable
+            name="vm"
+            type="com.jojo.android.colorsimilarityapp.ui.colorSimilarity.ColorSimilarityViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/material_dynamic_neutral_variant95"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_hor_mid"
+        app:layout_constraintStart_toStartOf="@id/guideline_ver_mid"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:showIn="@layout/activity_color_similarity">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="[Color Similarity Result]"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Table -->
+        <TableLayout
+            android:id="@+id/table_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginHorizontal="24dp"
+            android:padding="1dp"
+            android:stretchColumns="1, 2, 3, 4"
+            android:background="@color/material_dynamic_neutral_variant90"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView style="@style/Table.Title.AlignRight"/>
+                <TextView style="@style/Table.Title" android:text="RGB"/>
+                <TextView style="@style/Table.Title" android:text="HSL"/>
+                <TextView style="@style/Table.Title" android:text="XYZ"/>
+                <TextView style="@style/Table.Title" android:text="Lab"/>
+            </TableRow>
+
+            <!-- TableRow: Similarity -->
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView style="@style/Table.Title.AlignRight"  android:text="Similarity"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getSimilarity(ColorType.RGB)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.RGB)}"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getSimilarity(ColorType.HSL)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.HSL)}"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getSimilarity(ColorType.XYZ)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.XYZ)}"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getSimilarity(ColorType.LAB)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.LAB)}"/>
+            </TableRow>
+
+            <!-- TableRow: Euclidean Distance -->
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView style="@style/Table.Title.AlignRight" android:text="E·D"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getEuclideanDistance(ColorType.RGB)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.RGB)}"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getEuclideanDistance(ColorType.HSL)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.HSL)}"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getEuclideanDistance(ColorType.XYZ)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.XYZ)}"/>
+                <TextView style="@style/Table.Item.Highlight" android:text="@{vm.similarityTable.getEuclideanDistance(ColorType.LAB)}" android:enabled="@{vm.similarityTable.isCrossThreshold(ColorType.LAB)}"/>
+            </TableRow>
+
+            <!-- TableRow: Similarity Threshold -->
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView style="@style/Table.Title.AlignRight" android:text="Sim_Threshold"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getSimilarityThreshold(ColorType.RGB)}"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getSimilarityThreshold(ColorType.HSL)}"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getSimilarityThreshold(ColorType.XYZ)}"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getSimilarityThreshold(ColorType.LAB)}"/>
+            </TableRow>
+
+            <!-- TableRow: Euclidean Distance Threshold -->
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView style="@style/Table.Title.AlignRight" android:text="E·D_Threshold"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getEuclideanDistanceThreshold(ColorType.RGB)}"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getEuclideanDistanceThreshold(ColorType.HSL)}"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getEuclideanDistanceThreshold(ColorType.XYZ)}"/>
+                <TextView style="@style/Table.Item" android:text="@{vm.similarityTable.getEuclideanDistanceThreshold(ColorType.LAB)}"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <!-- Similarity Threshold Calibrator -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@color/material_dynamic_neutral_variant90"
+            app:layout_constraintTop_toBottomOf="@id/table_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/table_layout"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                style="?actionButtonStyle"
+                android:id="@+id/btn_sim_threshold_minus"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="6dp"
+                android:layout_gravity="start|center_vertical"
+                android:src="@drawable/minus_circle_24px"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Sim_Threshold"/>
+
+            <ImageView
+                style="?actionButtonStyle"
+                android:id="@+id/btn_sim_threshold_plus"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="6dp"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/plus_circle_24px"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
